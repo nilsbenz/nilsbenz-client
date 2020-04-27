@@ -1,48 +1,59 @@
-import { pink, teal } from "@material-ui/core/colors";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import fire from "../../api/fire";
-import { setLoadingVideos, setVideos } from "../../store/video/actions";
-import { Box } from "@material-ui/core";
+import { pink, teal } from '@material-ui/core/colors';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import About from '../pages/about/About';
+import Home from '../pages/home/Home';
+import Photos from '../pages/photos/Photos';
+import Videos from '../pages/videos/Videos';
+import WebDev from '../pages/webdev/WebDev';
 
 const theme = createMuiTheme({
   palette: {
     primary: teal,
     secondary: pink,
   },
+  typography: {
+    fontFamily: [
+      'norwester',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
 });
 
-interface Props {
-  setVideos: (videos: string[]) => void;
-  setLoadingVideos: (loading: boolean) => void;
-}
-
-const App: React.FC<Props> = ({ setVideos, setLoadingVideos }) => {
-  useEffect(() => {
-    let videosRef = fire.database().ref("videos").orderByKey().limitToLast(100);
-
-    videosRef.on("value", (snapshot: any) => {
-      const res: string[] = Object.entries(snapshot.val()).map(([id, url]) =>
-        String(url)
-      );
-      setVideos(res);
-      setLoadingVideos(false);
-    });
-  }, [setVideos, setLoadingVideos]);
-
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Box bgcolor={theme.palette.background.default}>
-        <div>Hello world</div>
-      </Box>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/videos">
+            <Videos />
+          </Route>
+          <Route path="/fotos">
+            <Photos />
+          </Route>
+          <Route path="/webdev">
+            <WebDev />
+          </Route>
+          <Route path="/ueber-mich">
+            <About />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
 
-const mapDispatchToProps = {
-  setVideos: setVideos,
-  setLoadingVideos: setLoadingVideos,
-};
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

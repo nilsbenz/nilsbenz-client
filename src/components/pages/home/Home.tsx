@@ -1,3 +1,4 @@
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   Button,
   CssBaseline,
@@ -6,7 +7,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import { useHistory } from 'react-router-dom';
@@ -15,7 +16,7 @@ import Footer from '../../molecules/footer/Footer';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    height: '100vh',
+    minHeight: 'var(--vh)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -66,6 +67,9 @@ const Home: React.FC = () => {
   const history = useHistory();
   const classes = useStyles();
   const [showElements, setShowElements] = useState<boolean>(false);
+  const [height, setHeight] = useState<CSSProperties>({
+    '--vh': `${window.innerHeight}px`,
+  });
 
   const toPage = (page: string): (() => void) => () => {
     setShowElements(false);
@@ -78,10 +82,21 @@ const Home: React.FC = () => {
     setShowElements(true);
   }, []);
 
+  useLayoutEffect(() => {
+    const updateSize = (): void => {
+      setHeight({
+        '--vh': `${window.innerHeight}px`,
+      });
+    };
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return (): void => window.removeEventListener('resize', updateSize);
+  }, []);
+
   return (
     <>
       <CssBaseline />
-      <div className={classes.root}>
+      <div className={classes.root} style={height}>
         <Grid container className={classes.main} alignContent="center">
           <Grid item xs={12}>
             <div className={classes.headingContainer}>

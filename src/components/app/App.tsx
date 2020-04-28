@@ -4,7 +4,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import About from '../pages/about/About';
 import Home from '../pages/home/Home';
-import Photos from '../pages/photos/Photos';
 import Videos from '../pages/videos/Videos';
 import WebDev from '../pages/webdev/WebDev';
 
@@ -37,9 +36,6 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/videos">
             <Videos />
-          </Route>
-          <Route path="/fotos">
-            <Photos />
           </Route>
           <Route path="/webdev">
             <WebDev />

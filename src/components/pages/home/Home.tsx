@@ -19,8 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    background: `linear-gradient(-45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main}, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+    backgroundSize: '500% 500%',
+    animation: '$gradient 15s ease -10s infinite',
   },
   main: {
     flexGrow: 1,
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '3vh',
+    marginBottom: '1vh',
   },
   icon: {
     height: '14vw',
@@ -47,6 +49,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     gridGap: theme.spacing(2),
     justifyContent: 'center',
   },
+  '@keyframes gradient': {
+    '0%': {
+      backgroundPosition: '10% 50%',
+    },
+    '50%': {
+      backgroundPosition: '90% 50%',
+    },
+    '100%': {
+      backgroundPosition: '10% 50%',
+    },
+  },
 }));
 
 const Home: React.FC = () => {
@@ -58,7 +71,7 @@ const Home: React.FC = () => {
     setShowElements(false);
     setTimeout(() => {
       history.push(page);
-    }, 350);
+    }, 650);
   };
 
   useEffect(() => {
@@ -68,45 +81,49 @@ const Home: React.FC = () => {
   return (
     <>
       <CssBaseline />
-      <Fade when={showElements} delay={100} duration={400}>
-        <div className={classes.root}>
-          <Grid container className={classes.main} alignContent="center">
-            <Grid item xs={12}>
-              <div className={classes.headingContainer}>
-                <Typography variant="h1" className={classes.heading}>
-                  <Zoom opposite cascade duration={700} delay={100}>
-                    <NilsBenzIcon className={classes.icon} />
-                    Nils Benz
-                  </Zoom>
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div className={classes.navContainer}>
-                <Fade bottom duration={500} delay={300}>
-                  <Button
-                    color="inherit"
-                    size="large"
-                    onClick={toPage('/videos')}
-                  >
-                    Videos
-                  </Button>
-                </Fade>
-                <Fade bottom duration={500} delay={350}>
-                  <Button
-                    color="inherit"
-                    size="large"
-                    onClick={toPage('/webdev')}
-                  >
-                    Web Development
-                  </Button>
-                </Fade>
-              </div>
-            </Grid>
+      <div className={classes.root}>
+        <Grid container className={classes.main} alignContent="center">
+          <Grid item xs={12}>
+            <div className={classes.headingContainer}>
+              <Typography variant="h1" className={classes.heading}>
+                <Zoom
+                  opposite
+                  cascade
+                  duration={700}
+                  delay={100}
+                  when={showElements}
+                >
+                  <NilsBenzIcon className={classes.icon} />
+                  NILS BENZ
+                </Zoom>
+              </Typography>
+            </div>
           </Grid>
-          <Footer openAboutPage={toPage('/ueber-mich')} />
-        </div>
-      </Fade>
+          <Grid item xs={12}>
+            <div className={classes.navContainer}>
+              <Fade bottom duration={500} delay={300} when={showElements}>
+                <Button
+                  color="inherit"
+                  size="large"
+                  onClick={toPage('/videos')}
+                >
+                  Videos
+                </Button>
+              </Fade>
+              <Fade bottom duration={500} delay={350} when={showElements}>
+                <Button
+                  color="inherit"
+                  size="large"
+                  onClick={toPage('/webdev')}
+                >
+                  Web Development
+                </Button>
+              </Fade>
+            </div>
+          </Grid>
+        </Grid>
+        <Footer openAboutPage={toPage('/ueber-mich')} />
+      </div>
     </>
   );
 };

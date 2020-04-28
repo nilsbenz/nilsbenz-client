@@ -15,7 +15,9 @@ const Footer: React.FC<Props> = ({ openAboutPage }) => {
       alignItems="center"
       justifyContent={openAboutPage ? 'space-between' : 'center'}
     >
-      <Typography variant="body2">© 2020 NILSBENZ.CH</Typography>
+      <Typography variant="body2">
+        © {new Date().getFullYear()} NILSBENZ.CH
+      </Typography>
       {openAboutPage && (
         <Button onClick={openAboutPage} color="inherit">
           Ueber Mich

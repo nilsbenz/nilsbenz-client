@@ -14,7 +14,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      'norwester',
+      'Norwester',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',

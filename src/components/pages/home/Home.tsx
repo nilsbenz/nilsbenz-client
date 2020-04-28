@@ -1,14 +1,15 @@
 import {
-  Box,
   Button,
+  CssBaseline,
   Grid,
   makeStyles,
-  Typography,
   Theme,
-  CssBaseline,
+  Typography,
 } from '@material-ui/core';
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Fade from 'react-reveal/Fade';
+import Zoom from 'react-reveal/Zoom';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as NilsBenzIcon } from '../../../assets/icons/logo.svg';
 import Footer from '../../molecules/footer/Footer';
 
@@ -18,63 +19,94 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: theme.palette.grey[900],
+    backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
   main: {
     flexGrow: 1,
   },
+  headingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '3vh',
+  },
   icon: {
     height: '14vw',
     width: '17.9vw',
+    marginRight: '6vw',
   },
   heading: {
-    marginLeft: '6vw',
     fontSize: '12.5vw',
+    display: 'flex',
+  },
+  navContainer: {
+    width: '100%',
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridGap: theme.spacing(2),
+    justifyContent: 'center',
   },
 }));
 
 const Home: React.FC = () => {
   const history = useHistory();
   const classes = useStyles();
+  const [showElements, setShowElements] = useState<boolean>(false);
+
+  const toPage = (page: string): (() => void) => () => {
+    setShowElements(false);
+    setTimeout(() => {
+      history.push(page);
+    }, 350);
+  };
+
+  useEffect(() => {
+    setShowElements(true);
+  }, []);
 
   return (
     <>
       <CssBaseline />
-      <div className={classes.root}>
-        <Grid container className={classes.main} alignContent="center">
-          <Grid item xs={12}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              marginBottom="3vh"
-            >
-              <NilsBenzIcon className={classes.icon} />
-              <Typography variant="h1" className={classes.heading}>
-                Nils Benz
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} container justify="center" spacing={2}>
-            <Grid item>
-              <Link to="/videos">
-                <Button color="inherit" size="large">
-                  Videos
-                </Button>
-              </Link>
+      <Fade when={showElements} delay={100} duration={400}>
+        <div className={classes.root}>
+          <Grid container className={classes.main} alignContent="center">
+            <Grid item xs={12}>
+              <div className={classes.headingContainer}>
+                <Typography variant="h1" className={classes.heading}>
+                  <Zoom opposite cascade duration={700} delay={100}>
+                    <NilsBenzIcon className={classes.icon} />
+                    Nils Benz
+                  </Zoom>
+                </Typography>
+              </div>
             </Grid>
-            <Grid item>
-              <Link to="/webdev">
-                <Button color="inherit" size="large">
-                  Web Development
-                </Button>
-              </Link>
+            <Grid item xs={12}>
+              <div className={classes.navContainer}>
+                <Fade bottom duration={500} delay={300}>
+                  <Button
+                    color="inherit"
+                    size="large"
+                    onClick={toPage('/videos')}
+                  >
+                    Videos
+                  </Button>
+                </Fade>
+                <Fade bottom duration={500} delay={350}>
+                  <Button
+                    color="inherit"
+                    size="large"
+                    onClick={toPage('/webdev')}
+                  >
+                    Web Development
+                  </Button>
+                </Fade>
+              </div>
             </Grid>
           </Grid>
-        </Grid>
-        <Footer openAboutPage={() => history.push('/ueber-mich')} />
-      </div>
+          <Footer openAboutPage={toPage('/ueber-mich')} />
+        </div>
+      </Fade>
     </>
   );
 };

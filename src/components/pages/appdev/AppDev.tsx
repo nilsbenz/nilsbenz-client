@@ -5,22 +5,23 @@ import { useHistory } from 'react-router-dom';
 import { ABOUT_ROUTE } from '../../app/routes';
 import Footer from '../../molecules/footer/Footer';
 
-const Videos: React.FC = () => {
+const AppDev: React.FC = () => {
   const history = useHistory();
+
   return (
     <>
       <CssBaseline />
       <Helmet>
-        <title>Videos | Nils Benz</title>
+        <title>Softwareentwicklung | Nils Benz</title>
         <meta
           name="description"
-          content="Ich bin Nils, Hobby-Videograf aus dem St. Galler Rheintal. In meiner Freizeit produziere ich Videos, unter anderem für Hochzeitspaare und kleine Unternehmen."
+          content="Ich bin Nils, gelernter Informatiker Fachrichtung Applikationsentwicklung. Neben meinem Job mache ich Websites und Apps für kleine Unternehmen."
         />
       </Helmet>
-      <Typography variant="h1">Videos</Typography>
+      <Typography variant="h1">Web Development</Typography>
       <Footer openAboutPage={() => history.push(ABOUT_ROUTE)} />
     </>
   );
 };
 
-export default Videos;
+export default AppDev;

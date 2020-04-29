@@ -3,9 +3,15 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import About from '../pages/about/About';
+import AppDev from '../pages/appdev/AppDev';
 import Home from '../pages/home/Home';
 import Videos from '../pages/videos/Videos';
-import WebDev from '../pages/webdev/WebDev';
+import {
+  ABOUT_ROUTE,
+  HOME_ROUTE,
+  SOFTWARE_ROUTE,
+  VIDEOS_ROUTE,
+} from './routes';
 
 const theme = createMuiTheme({
   palette: {
@@ -34,16 +40,16 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
-          <Route path="/videos">
+          <Route path={VIDEOS_ROUTE}>
             <Videos />
           </Route>
-          <Route path="/webdev">
-            <WebDev />
+          <Route path={SOFTWARE_ROUTE}>
+            <AppDev />
           </Route>
-          <Route path="/ueber-mich">
+          <Route path={ABOUT_ROUTE}>
             <About />
           </Route>
-          <Route path="/">
+          <Route path={HOME_ROUTE}>
             <Home />
           </Route>
         </Switch>

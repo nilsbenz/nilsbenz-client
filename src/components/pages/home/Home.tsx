@@ -1,4 +1,3 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   Button,
   CssBaseline,
@@ -8,10 +7,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as NilsBenzIcon } from '../../../assets/icons/logo.svg';
+import { ABOUT_ROUTE, SOFTWARE_ROUTE, VIDEOS_ROUTE } from '../../app/routes';
 import Footer from '../../molecules/footer/Footer';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -96,6 +98,15 @@ const Home: React.FC = () => {
   return (
     <>
       <CssBaseline />
+      <Helmet>
+        <title>Nils Benz | Videografie & Softwareentwicklung</title>
+        <meta
+          name="description"
+          content={`Ich bin Nils, ${
+            new Date().getFullYear() - 2000
+          } Jahre jung und Hobby-Videograf. Neben meinem Job als Informatiker mache ich Videos und Websites, unter anderem für Hochzeitspaare und kleine Unternehmen.`}
+        />
+      </Helmet>
       <div className={classes.root} style={height}>
         <Grid container className={classes.main} alignContent="center">
           <Grid item xs={12}>
@@ -120,7 +131,7 @@ const Home: React.FC = () => {
                 <Button
                   color="inherit"
                   size="large"
-                  onClick={toPage('/videos')}
+                  onClick={toPage(VIDEOS_ROUTE)}
                 >
                   Videos
                 </Button>
@@ -129,15 +140,15 @@ const Home: React.FC = () => {
                 <Button
                   color="inherit"
                   size="large"
-                  onClick={toPage('/webdev')}
+                  onClick={toPage(SOFTWARE_ROUTE)}
                 >
-                  Web Development
+                  Softwareentwicklung
                 </Button>
               </Fade>
             </div>
           </Grid>
         </Grid>
-        <Footer openAboutPage={toPage('/ueber-mich')} />
+        <Footer openAboutPage={toPage(ABOUT_ROUTE)} />
       </div>
     </>
   );

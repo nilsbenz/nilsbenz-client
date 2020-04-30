@@ -1,28 +1,27 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import React from 'react';
+import { ABOUT_DISPLAY_NAME, HOME_DISPLAY_NAME } from '../../util/header';
 
 interface Props {
-  openAboutPage?: () => void;
+  linkTo: typeof HOME_DISPLAY_NAME | typeof ABOUT_DISPLAY_NAME;
+  destructPage: () => void;
 }
 
-const Footer: React.FC<Props> = ({ openAboutPage }) => {
+const Footer: React.FC<Props> = ({ linkTo, destructPage }) => {
   return (
     <Box
       paddingY={2}
       paddingX={3}
       display="flex"
-      flexDirection="row-reverse"
       alignItems="center"
-      justifyContent={openAboutPage ? 'space-between' : 'center'}
+      justifyContent="space-between"
     >
+      <Button onClick={destructPage} color="inherit">
+        {linkTo}
+      </Button>
       <Typography variant="body2">
         © {new Date().getFullYear()} NILSBENZ.CH
       </Typography>
-      {openAboutPage && (
-        <Button onClick={openAboutPage} color="inherit">
-          Ueber Mich
-        </Button>
-      )}
     </Box>
   );
 };

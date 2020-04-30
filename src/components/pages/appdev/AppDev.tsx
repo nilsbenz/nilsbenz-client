@@ -1,12 +1,81 @@
-import { CssBaseline, Typography } from '@material-ui/core';
-import React from 'react';
+import {
+  Container,
+  CssBaseline,
+  Grid,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import Fade from 'react-reveal/Fade';
 import { useHistory } from 'react-router-dom';
-import { ABOUT_ROUTE } from '../../app/routes';
 import Footer from '../../molecules/footer/Footer';
+import Header from '../../molecules/header/Header';
+import {
+  ABOUT_DISPLAY_NAME,
+  HOME_DISPLAY_NAME,
+  NavigationItem,
+  SOFTWARE_DISPLAY_NAME,
+  VIDEOS_DISPLAY_NAME,
+} from '../../util/header';
+import { ABOUT_ROUTE, HOME_ROUTE, VIDEOS_ROUTE } from '../../util/routes';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    minHeight: 'var(--vh)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  main: {
+    flexGrow: 1,
+  },
+  heading: {
+    fontSize: 'min(12.5vw, 200px)',
+  },
+}));
 
 const AppDev: React.FC = () => {
   const history = useHistory();
+  const classes = useStyles();
+  const [showElements, setShowElements] = useState<boolean>(false);
+  const [height, setHeight] = useState<CSSProperties>({
+    '--vh': `${window.innerHeight}px`,
+  });
+
+  const toPage = (page: string): (() => void) => () => {
+    setShowElements(false);
+    setTimeout(() => {
+      history.push(page);
+    }, 650);
+  };
+
+  const navigationItems: NavigationItem[] = [
+    {
+      displayName: HOME_DISPLAY_NAME,
+      goToPage: toPage(HOME_ROUTE),
+    },
+    {
+      displayName: VIDEOS_DISPLAY_NAME,
+      goToPage: toPage(VIDEOS_ROUTE),
+    },
+  ];
+
+  useEffect(() => {
+    setShowElements(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    const updateSize = (): void => {
+      setHeight({
+        '--vh': `${window.innerHeight}px`,
+      });
+    };
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return (): void => window.removeEventListener('resize', updateSize);
+  }, []);
 
   return (
     <>
@@ -18,8 +87,26 @@ const AppDev: React.FC = () => {
           content="Ich bin Nils, gelernter Informatiker Fachrichtung Applikationsentwicklung. Neben meinem Job mache ich Websites und Apps für kleine Unternehmen."
         />
       </Helmet>
-      <Typography variant="h1">Web Development</Typography>
-      <Footer openAboutPage={() => history.push(ABOUT_ROUTE)} />
+      <div className={classes.root} style={height}>
+        <Container maxWidth="lg" className={classes.main}>
+          <Header
+            heading={SOFTWARE_DISPLAY_NAME}
+            navigationItems={navigationItems}
+            showElements={showElements}
+          />
+          <Grid container>
+            <Grid item xs={12}>
+              <Fade bottom when={showElements} duration={800}>
+                <Typography>This is the software development page.</Typography>
+              </Fade>
+            </Grid>
+          </Grid>
+        </Container>
+        <Footer
+          linkTo={ABOUT_DISPLAY_NAME}
+          destructPage={toPage(ABOUT_ROUTE)}
+        />
+      </div>
     </>
   );
 };

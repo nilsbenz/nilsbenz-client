@@ -13,8 +13,9 @@ import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as NilsBenzIcon } from '../../../assets/icons/logo.svg';
-import { ABOUT_ROUTE, SOFTWARE_ROUTE, VIDEOS_ROUTE } from '../../app/routes';
+import { ABOUT_ROUTE, SOFTWARE_ROUTE, VIDEOS_ROUTE } from '../../util/routes';
 import Footer from '../../molecules/footer/Footer';
+import { ABOUT_DISPLAY_NAME } from '../../util/header';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.common.white,
     background: `linear-gradient(-45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main}, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
     backgroundSize: '500% 500%',
-    animation: '$gradient 15s ease -10s infinite',
+    animation: '$gradient 15s ease -13.5s infinite',
   },
   main: {
     flexGrow: 1,
@@ -148,7 +149,10 @@ const Home: React.FC = () => {
             </div>
           </Grid>
         </Grid>
-        <Footer openAboutPage={toPage(ABOUT_ROUTE)} />
+        <Footer
+          linkTo={ABOUT_DISPLAY_NAME}
+          destructPage={toPage(ABOUT_ROUTE)}
+        />
       </div>
     </>
   );

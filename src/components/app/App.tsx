@@ -11,7 +11,7 @@ import {
   HOME_ROUTE,
   SOFTWARE_ROUTE,
   VIDEOS_ROUTE,
-} from './routes';
+} from '../util/routes';
 
 const theme = createMuiTheme({
   palette: {

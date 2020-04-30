@@ -6,30 +6,27 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as NilsBenzIcon } from '../../../assets/icons/logo.svg';
-import { ABOUT_ROUTE, SOFTWARE_ROUTE, VIDEOS_ROUTE } from '../../util/routes';
 import Footer from '../../molecules/footer/Footer';
 import { ABOUT_DISPLAY_NAME } from '../../util/header';
+import { ABOUT_ROUTE, SOFTWARE_ROUTE, VIDEOS_ROUTE } from '../../util/routes';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    minHeight: 'var(--vh)',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    height: '100vh',
     color: theme.palette.common.white,
     background: `linear-gradient(-45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main}, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
     backgroundSize: '500% 500%',
     animation: '$gradient 15s ease -13.5s infinite',
   },
   main: {
-    flexGrow: 1,
+    position: 'fixed',
+    top: 'calc(25% + 60px)',
   },
   headingContainer: {
     display: 'flex',
@@ -70,9 +67,6 @@ const Home: React.FC = () => {
   const history = useHistory();
   const classes = useStyles();
   const [showElements, setShowElements] = useState<boolean>(false);
-  const [height, setHeight] = useState<CSSProperties>({
-    '--vh': `${window.innerHeight}px`,
-  });
 
   const toPage = (page: string): (() => void) => () => {
     setShowElements(false);
@@ -83,17 +77,6 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     setShowElements(true);
-  }, []);
-
-  useLayoutEffect(() => {
-    const updateSize = (): void => {
-      setHeight({
-        '--vh': `${window.innerHeight}px`,
-      });
-    };
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return (): void => window.removeEventListener('resize', updateSize);
   }, []);
 
   return (
@@ -108,7 +91,7 @@ const Home: React.FC = () => {
           } Jahre jung und Hobby-Videograf. Neben meinem Job als Informatiker mache ich Videos und Websites, unter anderem für Hochzeitspaare und kleine Unternehmen.`}
         />
       </Helmet>
-      <div className={classes.root} style={height}>
+      <div className={classes.root}>
         <Grid container className={classes.main} alignContent="center">
           <Grid item xs={12}>
             <div className={classes.headingContainer}>
@@ -152,6 +135,7 @@ const Home: React.FC = () => {
         <Footer
           linkTo={ABOUT_DISPLAY_NAME}
           destructPage={toPage(ABOUT_ROUTE)}
+          transparent
         />
       </div>
     </>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(6),
     marginBottom: theme.spacing(6),
   },
   headingContainer: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: '2px',
   },
   dropdownItem: {
-    minWidth: '120px',
+    minWidth: '200px',
   },
   '@media screen and (max-width: 1149px)': {
     navItem: {
@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   '@media screen and (max-width: 599px)': {
     header: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
     },
     nav: {
       display: 'none',
@@ -118,8 +118,8 @@ const Header: React.FC<Props> = ({
           ))}
         </nav>
         <nav className={classes.dropdownNav}>
-          <IconButton onClick={handleOpenMenu}>
-            <MenuIcon fontSize="small" />
+          <IconButton onClick={handleOpenMenu} color="inherit">
+            <MenuIcon />
           </IconButton>
           <Menu
             id="nav-dropdown"
@@ -132,7 +132,6 @@ const Header: React.FC<Props> = ({
               <MenuItem
                 onClick={goToPage(navigationItem.goToPage)}
                 key={navigationItem.displayName}
-                dense
                 className={classes.dropdownItem}
               >
                 {navigationItem.displayName}

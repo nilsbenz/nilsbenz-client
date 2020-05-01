@@ -14,6 +14,7 @@ import YoutubeIcon from '@material-ui/icons/YouTube';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Fade from 'react-reveal/Fade';
+import Zoom from 'react-reveal/Zoom';
 import { Link, useHistory } from 'react-router-dom';
 import AboutImage from '../../../assets/images/about.jpg';
 import Footer from '../../molecules/footer/Footer';
@@ -84,10 +85,20 @@ const About: React.FC = () => {
     },
   ];
 
-  const animate = (element: ReactElement): ReactElement => (
+  const animateFade = (element: ReactElement): ReactElement => (
     <Fade bottom cascade when={showElements} duration={800}>
       {element}
     </Fade>
+  );
+
+  const animateTextZoom = (text: string): ReactElement => (
+    <div>
+      <Typography variant="h2" className={classes.header}>
+        <Zoom opposite cascade duration={800} when={showElements}>
+          {text}
+        </Zoom>
+      </Typography>
+    </div>
   );
 
   useEffect(() => {
@@ -113,11 +124,9 @@ const About: React.FC = () => {
           showElements={showElements}
         />
         <div className={classes.main}>
-          {animate(
+          {animateTextZoom('HALLO')}
+          {animateFade(
             <div>
-              <Typography variant="h2" className={classes.header}>
-                HALLO
-              </Typography>
               <Typography className={classes.paragraph}>
                 ICH BIN NILS, <br />
                 {new Date().getFullYear() - 2000} JAHRE JUNG <br />
@@ -130,7 +139,7 @@ const About: React.FC = () => {
               />
             </div>
           )}
-          {animate(
+          {animateFade(
             <Typography className={classes.paragraph}>
               IM FRUEHJAHR 2020 HABE ICH <br />
               DIE AUSBILDUNG ZUM EFZ INFORMATIKER <br />
@@ -138,7 +147,7 @@ const About: React.FC = () => {
               ABGESCHLOSSEN.
             </Typography>
           )}
-          {animate(
+          {animateFade(
             <Typography className={classes.paragraph}>
               IN MEINER FREIZEIT PRODUZIERE ICH VIDEOS. <br />
               ICH HALTE BEISPIELSWEISE DEN GANZ <br />
@@ -148,13 +157,13 @@ const About: React.FC = () => {
               FUER EIN KLEINES UNTERNEHMEN.
             </Typography>
           )}
-          {animate(
+          {animateFade(
             <Typography className={classes.paragraph}>
               EINIGE BEISPIELE HABE ICH <br />
               <Link to={VIDEOS_ROUTE}>HIER</Link> VEROEFFENTLICHT.
             </Typography>
           )}
-          {animate(
+          {animateFade(
             <Typography className={classes.paragraph}>
               AUSSERDEM PROGRAMMIERE ICH <br />
               WEBSITES UND APPS. <br />
@@ -164,12 +173,8 @@ const About: React.FC = () => {
           )}
           <Grid container>
             <Grid item xs={12} sm={6}>
-              {animate(
-                <Typography variant="h2" className={classes.header}>
-                  SOCIAL MEDIA
-                </Typography>
-              )}
-              {animate(
+              {animateTextZoom('SOCIAL MEDIA')}
+              {animateFade(
                 <div className={classes.paragraph}>
                   <Button
                     startIcon={<InstagramIcon />}
@@ -192,12 +197,8 @@ const About: React.FC = () => {
               )}
             </Grid>
             <Grid item xs={12} sm={6}>
-              {animate(
-                <Typography variant="h2" className={classes.header}>
-                  KONTAKT
-                </Typography>
-              )}
-              {animate(
+              {animateTextZoom('KONTAKT')}
+              {animateFade(
                 <Typography className={classes.paragraph}>
                   NILS BENZ <br />
                   WIDENSTRASSE 9 <br />
@@ -205,7 +206,7 @@ const About: React.FC = () => {
                   SCHWEIZ <br />
                 </Typography>
               )}
-              {animate(
+              {animateFade(
                 <div className={classes.paragraph}>
                   <Button
                     startIcon={<PhoneIcon />}

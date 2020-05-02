@@ -2,6 +2,7 @@ import { pink, teal } from '@material-ui/core/colors';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ScrollToTop from '../molecules/scrolltotop/ScrollToTop';
 import About from '../pages/about/About';
 import AppDev from '../pages/appdev/AppDev';
 import Home from '../pages/home/Home';
@@ -39,6 +40,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <ScrollToTop />
         <Switch>
           <Route path={VIDEOS_ROUTE}>
             <Videos />

@@ -46,10 +46,19 @@ const VideoPlayer: React.FC<Props> = ({ video }) => {
   useEffect(() => {
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
-  });
+    return () => window.removeEventListener('resize', updateDimensions);
+    // eslint-disable-next-line
+  }, []);
 
   if (!video) {
-    return <Skeleton width={width} height={height} className={classes.base} />;
+    return (
+      <Skeleton
+        width={width}
+        height={height}
+        variant="rect"
+        className={classes.base}
+      />
+    );
   }
 
   return (

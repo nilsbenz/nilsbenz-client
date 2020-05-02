@@ -64,7 +64,7 @@ const AppDev: React.FC = () => {
           content="Ich bin Nils, gelernter Informatiker Fachrichtung Applikationsentwicklung. Neben meinem Job mache ich Websites und Apps für kleine Unternehmen."
         />
       </Helmet>
-      <Container maxWidth="lg" className={classes.main}>
+      <Container maxWidth="md" className={classes.main}>
         <Header
           heading={SOFTWARE_DISPLAY_NAME}
           navigationItems={navigationItems}

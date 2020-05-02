@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 'fit-content',
   },
   heading: {
-    fontSize: 'min(8vw, 110px)',
+    fontSize: 'min(8vw, 85px)',
     backgroundImage: `linear-gradient(-45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main}, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
     backgroundSize: '130% 100%',
     '-webkit-background-clip': 'text',
@@ -39,18 +39,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   dropdownNav: {
     display: 'none',
   },
-  navItem: {
-    marginTop: '2px',
-    marginBottom: '2px',
-  },
   dropdownItem: {
     minWidth: '200px',
-  },
-  '@media screen and (max-width: 1149px)': {
-    navItem: {
-      marginTop: 0,
-      marginBottom: 0,
-    },
   },
   '@media screen and (max-width: 599px)': {
     header: {
@@ -111,7 +101,6 @@ const Header: React.FC<Props> = ({
             <Button
               onClick={navigationItem.goToPage}
               key={navigationItem.displayName}
-              className={classes.navItem}
             >
               {navigationItem.displayName}
             </Button>

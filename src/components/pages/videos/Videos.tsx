@@ -74,6 +74,23 @@ const Videos: React.FC = () => {
     },
   ];
 
+  const updateVideos = (snapshot: any) => {
+    const res: Genre[] = Object.entries(snapshot.val()).map(
+      ([genre, videos]: [string, unknown]) => ({
+        genre,
+        videos: toVideoCollection(videos),
+      })
+    );
+    setVideos({
+      lifestyle:
+        res[res.findIndex((genre) => genre.genre.toLowerCase() === 'lifestyle')]
+          ?.videos,
+      weddings:
+        res[res.findIndex((genre) => genre.genre.toLowerCase() === 'weddings')]
+          .videos,
+    });
+  };
+
   const animateFade = (element: ReactElement): ReactElement => (
     <Fade bottom cascade when={showElements} duration={800}>
       {element}
@@ -94,24 +111,8 @@ const Videos: React.FC = () => {
     setShowElements(true);
 
     const videosRef = fire.database().ref('videos').limitToLast(100);
-    videosRef.on('value', (snapshot: any) => {
-      const res: Genre[] = Object.entries(snapshot.val()).map(
-        ([genre, videos]: [string, unknown]) => ({
-          genre,
-          videos: toVideoCollection(videos),
-        })
-      );
-      setVideos({
-        lifestyle:
-          res[
-            res.findIndex((genre) => genre.genre.toLowerCase() === 'lifestyle')
-          ].videos,
-        weddings:
-          res[
-            res.findIndex((genre) => genre.genre.toLowerCase() === 'weddings')
-          ].videos,
-      });
-    });
+    videosRef.on('value', updateVideos);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -131,12 +132,12 @@ const Videos: React.FC = () => {
           showElements={showElements}
         />
         <div className={classes.main}>
+          {animateTextZoom('WAS ICH KANN')}
           {animateFade(
             <div>
               <Typography className={classes.paragraph}>
-                NEBEN MEINEM JOB ALS <br />
-                INFORMATIKER PRODUZIERE ICH <br />
-                VIDEOS. <br />
+                NEBEN MEINEM JOB ALS INFORMATIKER <br />
+                PRODUZIERE ICH VIDEOS. <br />
                 ICH HALTE BEISPIELSWEISE DEN GANZ <br />
                 BESONDEREN TAG FUER EIN <br />
                 HOCHZEITSPAAR FEST <br />
@@ -150,20 +151,26 @@ const Videos: React.FC = () => {
             </div>
           )}
           {animateTextZoom('LIFESTYLE')}
-          {videos ? (
+          {videos && videos.lifestyle ? (
             videos.lifestyle.map((video) => (
               <VideoPlayer video={video} key={video.displayName} />
             ))
           ) : (
-            <VideoPlayer video={null} />
+            <>
+              <VideoPlayer video={null} />
+              <VideoPlayer video={null} />
+            </>
           )}
           {animateTextZoom('HOCHZEITEN')}
-          {videos ? (
+          {videos && videos.weddings ? (
             videos.weddings.map((video) => (
               <VideoPlayer video={video} key={video.displayName} />
             ))
           ) : (
-            <VideoPlayer video={null} />
+            <>
+              <VideoPlayer video={null} />
+              <VideoPlayer video={null} />
+            </>
           )}
         </div>
       </Container>

@@ -126,19 +126,19 @@ const About: React.FC = () => {
         <div className={classes.main}>
           {animateTextZoom('HALLO')}
           {animateFade(
-            <div>
-              <Typography className={classes.paragraph}>
-                ICH BIN NILS, <br />
-                {new Date().getFullYear() - 2000} JAHRE JUNG <br />
-                UND KOMME AUS DEM ST. GALLER RHEINTAL.
-              </Typography>
-              <img
-                src={AboutImage}
-                alt="Nils Benz"
-                className={classes.aboutImage}
-              />
-            </div>
+            <Typography className={classes.paragraph}>
+              ICH BIN NILS, <br />
+              {new Date().getFullYear() - 2000} JAHRE JUNG <br />
+              UND KOMME AUS DEM ST. GALLER RHEINTAL.
+            </Typography>
           )}
+          <Zoom opposite duration={800} when={showElements}>
+            <img
+              src={AboutImage}
+              alt="Nils Benz"
+              className={classes.aboutImage}
+            />
+          </Zoom>
           {animateFade(
             <Typography className={classes.paragraph}>
               IM FRUEHJAHR 2020 HABE ICH <br />

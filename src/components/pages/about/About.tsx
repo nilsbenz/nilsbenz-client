@@ -116,6 +116,10 @@ const About: React.FC = () => {
             new Date().getFullYear() - 2000
           } Jahre jung und Hobby-Videograf. Neben meinem Job als Informatiker mache ich Videos und Websites, unter anderem für Hochzeitspaare und kleine Unternehmen.`}
         />
+        <meta
+          name="keywords"
+          content="Nils Benz, Film, Video, Website, App, Webseite, Hochzeit, Informatiker, Fotograf, Filmemacher, Videografie, Videography, Fotografie"
+        />
       </Helmet>
       <Container maxWidth="md">
         <Header

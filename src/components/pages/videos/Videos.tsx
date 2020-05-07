@@ -124,6 +124,11 @@ const Videos: React.FC = () => {
           name="description"
           content="Ich bin Nils, Hobby-Videograf aus dem St. Galler Rheintal. In meiner Freizeit produziere ich Videos, unter anderem für Hochzeitspaare und kleine Unternehmen."
         />
+
+        <meta
+          name="keywords"
+          content="Nils Benz, Film, Video, Videografie, Fotograf, Filmemacher, Videography, Fotografie"
+        />
       </Helmet>
       <Container maxWidth="md" className={classes.main}>
         <Header

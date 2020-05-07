@@ -96,6 +96,10 @@ const AppDev: React.FC = () => {
           name="description"
           content="Ich bin Nils, gelernter Informatiker Fachrichtung Applikationsentwicklung. Neben meinem Job mache ich Websites und Apps für kleine Unternehmen."
         />
+        <meta
+          name="keywords"
+          content="Nils Benz, Website, App, Webseite, Informatiker, Programmieren, Software, Softwareentwicklung, Informatik"
+        />
       </Helmet>
       <Container maxWidth="md" className={classes.main}>
         <Header

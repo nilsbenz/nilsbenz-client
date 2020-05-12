@@ -127,7 +127,7 @@ const AppDev: React.FC = () => {
           {animateTextZoom('REFERENZEN')}
           {animateFade(
             <Typography className={classes.paragraph}>
-              MEINE <Link to={HOME_ROUTE}>EINGENE WEBSITE</Link> HABE ICH <br />
+              MEINE <Link to={HOME_ROUTE}>EIGENE WEBSITE</Link> HABE ICH <br />
               SELBER DESIGNT UND UMGESETZT <br />
               UND BETREIBE DIESE NUN AUF <br />
               <a
